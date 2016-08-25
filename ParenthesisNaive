@@ -1,6 +1,6 @@
 import sys
 from collections import deque
-
+#Complexity of Time: Aprox 5n ~ o(n)
 def parenthesis(text):
     
     parenthesis = []
