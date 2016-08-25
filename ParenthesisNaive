@@ -1,0 +1,52 @@
+import sys
+from collections import deque
+
+def parenthesis(text):
+    
+    parenthesis = []
+    for i in range(0,len(text)):
+        if text[i] in("{","}","(",")","[","]"):
+            parenthesis.append(i)
+    #Debug:
+    #DebugText = ""
+    #for i in parenthesis:
+        #DebugText=DebugText+text[i]
+    #print DebugText
+    
+    temp = []
+    for j in range(0,len(parenthesis)-1):
+        if (text[parenthesis[j]]+text[parenthesis[j+1]]) in ("{}","[]","()"):
+            temp.append(j)
+            temp.append(j+1)
+    #print temp
+    
+    newParenthesis = []
+    for i in range(0,len(parenthesis)):
+        if(i not in temp):
+            newParenthesis.append(parenthesis[i])
+    
+    #Debug:
+    #DebugText2 = ""
+    #for i in newParenthesis:
+        #DebugText2=DebugText2+text[i]
+    #print DebugText2
+        
+    leftCollection = deque()
+    rightCollection = deque()    
+    
+    for i in newParenthesis:
+        if text[i] in ("{","[","("):
+            leftCollection.append(text[i])
+        elif text[i] in ("}","]",")"):
+            rightCollection.append(text[i])
+
+
+    if len(leftCollection) != len(rightCollection):
+        return False
+    else:
+        while(len(leftCollection)!=0):
+            temp = leftCollection.pop()+rightCollection.popleft()
+            if temp not in ('[]','{}','()'):
+                return False
+        return True
+        
