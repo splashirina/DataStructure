@@ -1,0 +1,19 @@
+from collections import deque
+
+
+def parenthesis(text):
+    parenHolder = deque()
+    temp = 0
+    for i in range(0,len(text)):
+        if text[i] in ('(','{','['):
+            parenHolder.append(i)
+        elif text[i] in (')','}',']'):
+            if len(parenHolder) > 0:
+                if (text[parenHolder.pop()]+text[i]) not in ('()','[]','{}'):
+                    return i+1
+            else:
+                return i+1
+    if len(parenHolder) > 0:
+        return parenHolder.pop()+1
+    else:
+        return 'sucess'
